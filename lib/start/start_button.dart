@@ -5,12 +5,13 @@ enum StartButtonType { Add, Search }
 
 class StartButton extends StatefulWidget {
   final StartButtonType buttonType;
+  Function onClick;
 
-  StartButton({this.buttonType});
+  StartButton({this.buttonType, this.onClick});
 
   @override
   State<StatefulWidget> createState() {
-    return _StartButtonState(this.buttonType);
+    return _StartButtonState(buttonType: this.buttonType, onClick: this.onClick);
   }
 }
 
@@ -20,8 +21,9 @@ class _StartButtonState extends State<StartButton>
 
   AnimationController _animationController;
   Animation _animation;
+  Function onClick;
 
-  _StartButtonState(this.buttonType);
+  _StartButtonState({this.buttonType, this.onClick});
 
   Animation getAnimation() {
     return ColorTween(begin: getUnpressedColor(), end: getPressedColor())
@@ -71,6 +73,7 @@ class _StartButtonState extends State<StartButton>
                 _animationController.fling(velocity: 1).whenComplete(() {
                   _animationController.reverse();
                 });
+                this.onClick();
               },
               iconSize: 120,
               color: Colors.black38,

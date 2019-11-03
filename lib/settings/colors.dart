@@ -2,6 +2,9 @@ library app_colors;
 
 import 'package:flutter/material.dart';
 
+
+const backgroundPrimary = Color(0xffFFF2CC);
+
 const Color PrimaryA = Color(0xffFFE6CC);
 const Color PrimaryADarkened = Color(0xffD79B00);
 
