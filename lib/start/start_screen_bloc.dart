@@ -39,7 +39,7 @@ class StartScreenBloc {
     var subject = BehaviorSubject<Question>();
     subject.sink.add(question);
     var stream = questionsRepository.create(question).asStream();
-    subject.mergeWith([stream]);
+    stream.listen(subject.add);
     navigateToCreate(subject);
   }
 

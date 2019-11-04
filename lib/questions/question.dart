@@ -6,8 +6,15 @@ enum QuestionType {
 }
 
 class Question {
-  QuestionType type;
-  int count;
-  String id;
-  Question({this.type, this.count, this.id});
+  final QuestionType type;
+  final int count;
+  final String id;
+  Question({this.type, this.count = 1, this.id});
+
+  Question.clone(Question question, { QuestionType type, int count, String id}):
+        this(
+          type: type ?? question.type,
+          count: count ?? question.count,
+          id: id ?? question.id
+      );
 }

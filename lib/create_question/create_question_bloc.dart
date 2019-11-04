@@ -3,14 +3,12 @@ import 'package:rxdart/rxdart.dart';
 
 class CreateQuestionBloc {
   BehaviorSubject<Question> _subject;
-  Stream<Question> question;
-
-  CreateQuestionBloc({this.question}){
+  CreateQuestionBloc({Stream<Question> question}){
     _subject = new BehaviorSubject<Question>();
-    this.question.listen(_subject.add);
-    _subject.doOnEach((question) {
-      print('Test');
+    question.listen((question){
+      print('Its here');
     });
+    question.listen(_subject.add);
   }
 
   Stream<Question> get activeQuestion => _subject.asBroadcastStream();
@@ -18,6 +16,21 @@ class CreateQuestionBloc {
   setActiveQuestion(Question question)
   {
     _subject.sink.add(question);
+  }
+
+  addAnswer(Question question) {
+    var updatedQuestion = Question.clone(question, count: question.count + 1);
+    _subject.sink.add(updatedQuestion);
+  }
+
+  removeAnswer(Question question) {
+    var updatedQuestion = Question.clone(question, count: question.count - 1);
+    _subject.sink.add(updatedQuestion);
+  }
+
+  setType(Question question, QuestionType type) {
+    var updatedQuestion = Question.clone(question, type: type);
+    _subject.sink.add(updatedQuestion);
   }
 
   removeActiveQuestion()

@@ -76,7 +76,7 @@ class _StartButtonState extends State<StartButton>
                 this.onClick();
               },
               iconSize: 120,
-              color: Colors.black38,
+              color: Colors.black,
               icon: Icon(
                   buttonType == StartButtonType.Add ? Icons.add : Icons.search),
             ));
