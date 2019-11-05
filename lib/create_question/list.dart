@@ -23,7 +23,7 @@ class CreateQuestionList extends StatelessWidget {
       initialItemCount: 2,
       itemBuilder: (context, index, animation) {
 
-        if(question.count < index) {
+        if((question?.count ?? -1) < index) {
           return null;
         }
 

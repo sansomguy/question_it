@@ -7,6 +7,9 @@ import 'package:question_it/start/start_screen_bloc.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+  final startScreenBloc = StartScreenBloc();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => StartScreen(bloc: StartScreenBloc(context: context))
+          '/': (context) => StartScreen(bloc: startScreenBloc)
         },
       )
     );

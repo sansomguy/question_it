@@ -12,16 +12,14 @@ class StartScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _StartScreenState(bloc: this.bloc);
+    return _StartScreenState();
   }
 }
 
 
 class _StartScreenState extends State<StartScreen> {
 
-  final StartScreenBloc bloc;
-
-  _StartScreenState({this.bloc});
+  _StartScreenState();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,7 @@ class _StartScreenState extends State<StartScreen> {
                 fit: FlexFit.tight,
                 child: StartButton(
                     buttonType: StartButtonType.Add,
-                    onClick: () => bloc.createQuestion()
+                    onClick: () => this.widget.bloc.createQuestion(context)
                 )
             )
           ]),

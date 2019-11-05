@@ -5,7 +5,6 @@ import 'package:question_it/create_question/header.dart';
 import 'package:question_it/create_question/list.dart';
 import 'package:question_it/questions/question.dart';
 import 'package:question_it/settings/colors.dart' as app_colors;
-import 'buttons.dart';
 
 class CreateQuestionScreen extends StatelessWidget {
   final CreateQuestionBloc bloc;
@@ -19,7 +18,6 @@ class CreateQuestionScreen extends StatelessWidget {
                 color: app_colors.backgroundPrimary,
                 child: StreamBuilder(
                     stream: this.bloc.activeQuestion,
-                    initialData: Question(),
                     builder: (context, AsyncSnapshot<Question> snapshot) =>
                         Column(children: [
                           CreateQuestionHeader(
@@ -32,6 +30,10 @@ class CreateQuestionScreen extends StatelessWidget {
                                   question: snapshot.data,
                                   addAnswer: bloc.addAnswer,
                                   removeAnswer: bloc.removeAnswer))
-                        ])))));
+                        ])
+                )
+            )
+        )
+    );
   }
 }

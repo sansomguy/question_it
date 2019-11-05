@@ -11,46 +11,27 @@ import 'package:uuid/uuid.dart';
 const createQuestion = "createQuestion";
 const findQuestion = "findQuestion";
 
-class StartScreenEvent extends Equatable{
-
-  String type;
-  Question question;
-  StartScreenEvent({this.type, this.question});
-
-  @override
-  List<Object> get props => [this.type, this.question];
-}
-
-class StartScreenState {
-  Question question;
-  StartScreenState({this.question});
-}
-
-
 class StartScreenBloc {
 
   final questionsRepository = QuestionsRepository();
-  final BuildContext context;
-  
-  StartScreenBloc({this.context});
+  StartScreenBloc();
 
-  void createQuestion() {
+  void createQuestion(BuildContext context) {
     var question = Question(id: Uuid().v1());
     var subject = BehaviorSubject<Question>();
     subject.sink.add(question);
     var stream = questionsRepository.create(question).asStream();
     stream.listen(subject.add);
-    navigateToCreate(subject);
+    final bloc = CreateQuestionBloc(question: subject.asBroadcastStream());
+    navigateToCreate(bloc, context);
   }
 
-  void navigateToCreate(Observable<Question> createdQuestion) {
+  void navigateToCreate(CreateQuestionBloc bloc, BuildContext context) {
     Navigator
       .of(context)
       .push(
         MaterialPageRoute(
-            builder: (context) => CreateQuestionScreen(
-                bloc: CreateQuestionBloc(question: createdQuestion.asBroadcastStream())
-            )
+            builder: (context) => CreateQuestionScreen(bloc: bloc)
         )
       );
   }
