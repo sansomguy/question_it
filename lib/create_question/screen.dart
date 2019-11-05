@@ -7,19 +7,9 @@ import 'package:question_it/questions/question.dart';
 import 'package:question_it/settings/colors.dart' as app_colors;
 import 'buttons.dart';
 
-class CreateQuestionScreen extends StatefulWidget {
+class CreateQuestionScreen extends StatelessWidget {
   final CreateQuestionBloc bloc;
   CreateQuestionScreen({this.bloc});
-  @override
-  State<StatefulWidget> createState() {
-    return _CreateQuestionState(bloc: this.bloc);
-  }
-}
-
-class _CreateQuestionState extends State<CreateQuestionScreen> {
-  final CreateQuestionBloc bloc;
-
-  _CreateQuestionState({this.bloc});
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +24,7 @@ class _CreateQuestionState extends State<CreateQuestionScreen> {
                         Column(children: [
                           CreateQuestionHeader(
                               onTypeSet: (type) {
-//                                this.bloc.setType(snapshot.data, type)
-                                print('TEsting the things');
+                                this.bloc.setType(snapshot.data, type);
                               }
                           ),
                           Expanded(
@@ -44,11 +33,5 @@ class _CreateQuestionState extends State<CreateQuestionScreen> {
                                   addAnswer: bloc.addAnswer,
                                   removeAnswer: bloc.removeAnswer))
                         ])))));
-  }
-
-  @override
-  void dispose() {
-    this.bloc.dispose();
-    super.dispose();
   }
 }

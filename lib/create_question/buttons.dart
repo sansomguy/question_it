@@ -16,27 +16,22 @@ class QuestionTypeButton extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _QuestionTypeButtonState(questionType, this.onPressed);
+    return _QuestionTypeButtonState();
   }
 }
 
 class _QuestionTypeButtonState extends State<QuestionTypeButton> {
 
-  final OnPressed onPressed;
-
   var animationTime = Duration(milliseconds: 50);
   var afterAnimation = Duration(milliseconds: 50);
   var selected = false;
-  QuestionType questionType;
-
-  _QuestionTypeButtonState(this.questionType, this.onPressed);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         setState(() {
-          onPressed(this.questionType);
+          this.widget.onPressed(this.widget.questionType);
           selected = true;
           Future.delayed(afterAnimation, () {
             setState(() {
@@ -52,7 +47,7 @@ class _QuestionTypeButtonState extends State<QuestionTypeButton> {
           duration: animationTime,
           curve: Curves.linear,
           child: Container(
-            child: QuestionTypeIcon(this.questionType),
+            child: QuestionTypeIcon(this.widget.questionType),
             height: kToolbarHeight,
             decoration: BoxDecoration(
               border: Border.all(
