@@ -9,9 +9,9 @@ typedef RemoveAnswer(Question question);
 class CreateQuestionList extends StatelessWidget {
 
   final Question question;
-  final list = List<int>();
   final AddAnswer addAnswer;
   final RemoveAnswer removeAnswer;
+  final List<String> emojis = '😀,😁,😂,🤣,😃,😄,😅,😆,😉,😊,😋,😎,😍,😘,🥰,😗,😙,😚,☺️,🙂,🤗,🤩,🤔,🤨,😐,😑,😶,🙄,😏,😣,😥,😮,🤐,😯,😪,😫,😴,😌,😛,😜,😝,🤤,😒,😓,😔,😕,🙃,🤑,😲,☹️,🙁,😖,😞,😟,😤,😢,😭,😦,😧,😨,😩,🤯,😬,😰,😱,🥵,🥶,😳,🤪,😵,😡,😠,🤬,😷,🤒,🤕,🤢,🤮,🤧,😇,🤠,🤡,🥳,🥴,🥺,🤥,🤫,🤭,🧐,🤓,😈,👿,👹,👺,💀,👻,👽,🤖,💩,😺,😸,😹,😻,😼,😽,🙀,😿,😾'.split(',').toList(growable: false);
 
   CreateQuestionList({Key key, this.question, this.addAnswer, this.removeAnswer}) : super(key: key);
 
@@ -47,6 +47,9 @@ class CreateQuestionList extends StatelessWidget {
 
         return GestureDetector(
             onTap: () {
+              if(question.count == 1) {
+                return;
+              }
               this.removeAnswer(question);
               AnimatedList.of(context)
                   .removeItem(index, (context, animation) => _builder(context, index, animation));
@@ -87,11 +90,16 @@ class CreateQuestionList extends StatelessWidget {
         return Text('${String.fromCharCode(aIndex + index)}', style: text_style);
       }
       break;
+      case QuestionType.Emoji:
+        return Text(emojis.length > index ? emojis[index] : 'No more emojis!!!', style: text_style);
+      break;
 
       case QuestionType.Number:
       default:
         return Text('${index + 1}', style: text_style);
       break;
+
+
     }
   }
 
