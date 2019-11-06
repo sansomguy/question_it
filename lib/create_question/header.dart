@@ -39,9 +39,15 @@ class CreateQuestionHeader extends StatelessWidget {
                 child: QuestionTypeButton(questionType: QuestionType.Number, onPressed: onTypeSet),
               ),
               Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: QuestionTypeButton(questionType: QuestionType.Fibonacci, onPressed: onTypeSet),
+              ),
+              Flexible(
                   flex: 1,
                   fit: FlexFit.tight,
-                  child: QuestionTypeButton(questionType: QuestionType.Emoji, onPressed: onTypeSet))
+                  child: QuestionTypeButton(questionType: QuestionType.Emoji, onPressed: onTypeSet)
+              ),
             ]));
   }
 }

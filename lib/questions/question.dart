@@ -1,8 +1,8 @@
 enum QuestionType {
   Number,
   Letters,
-  Emoji,
-  Prime
+  Fibonacci,
+  Emoji
 }
 
 class Question {

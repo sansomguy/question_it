@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:question_it/questions/question.dart';
@@ -5,15 +7,17 @@ import 'package:question_it/settings/font.dart';
 
 typedef AddAnswer(Question question);
 typedef RemoveAnswer(Question question);
+typedef int Fibonacci(int index);
 
 class CreateQuestionList extends StatelessWidget {
 
   final Question question;
   final AddAnswer addAnswer;
   final RemoveAnswer removeAnswer;
-  final List<String> emojis = '😀,😁,😂,🤣,😃,😄,😅,😆,😉,😊,😋,😎,😍,😘,🥰,😗,😙,😚,☺️,🙂,🤗,🤩,🤔,🤨,😐,😑,😶,🙄,😏,😣,😥,😮,🤐,😯,😪,😫,😴,😌,😛,😜,😝,🤤,😒,😓,😔,😕,🙃,🤑,😲,☹️,🙁,😖,😞,😟,😤,😢,😭,😦,😧,😨,😩,🤯,😬,😰,😱,🥵,🥶,😳,🤪,😵,😡,😠,🤬,😷,🤒,🤕,🤢,🤮,🤧,😇,🤠,🤡,🥳,🥴,🥺,🤥,🤫,🤭,🧐,🤓,😈,👿,👹,👺,💀,👻,👽,🤖,💩,😺,😸,😹,😻,😼,😽,🙀,😿,😾'.split(',').toList(growable: false);
+  final Fibonacci fibonacci;
+  final List<String> emojis;
 
-  CreateQuestionList({Key key, this.question, this.addAnswer, this.removeAnswer}) : super(key: key);
+  CreateQuestionList({Key key, this.question, this.addAnswer, this.removeAnswer, this.fibonacci, this.emojis}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -93,6 +97,9 @@ class CreateQuestionList extends StatelessWidget {
       case QuestionType.Emoji:
         return Text(emojis.length > index ? emojis[index] : 'No more emojis!!!', style: text_style);
       break;
+
+      case QuestionType.Fibonacci:
+        return Text('${fibonacci(index)}', style: text_style);
 
       case QuestionType.Number:
       default:

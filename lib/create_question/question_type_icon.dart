@@ -1,11 +1,15 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:question_it/questions/question.dart';
 import 'package:question_it/settings/font.dart';
 
 class QuestionTypeIcon extends StatelessWidget {
 
   QuestionType questionType;
+
+  final String fibonacciAsset = 'images/poker.svg';
+
 
   QuestionTypeIcon(this.questionType);
 
@@ -19,7 +23,18 @@ class QuestionTypeIcon extends StatelessWidget {
         );
 
       case QuestionType.Emoji:
-        return Icon(Icons.tag_faces, size: font_size);
+        return Center(
+          child: Text('😀', style: text_style)
+        );
+
+      case QuestionType.Fibonacci:
+        return Container(
+          padding: EdgeInsets.all(5),
+         child: SvgPicture.asset(
+             fibonacciAsset,
+             semanticsLabel: 'Planning Poker'
+         ) 
+        );
 
       default:
         return Center(

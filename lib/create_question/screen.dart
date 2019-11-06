@@ -3,11 +3,13 @@ import 'package:flutter/widgets.dart';
 import 'package:question_it/create_question/create_question_bloc.dart';
 import 'package:question_it/create_question/header.dart';
 import 'package:question_it/create_question/list.dart';
+import 'package:question_it/create_question/list_bloc.dart';
 import 'package:question_it/questions/question.dart';
 import 'package:question_it/settings/colors.dart' as app_colors;
 
 class CreateQuestionScreen extends StatelessWidget {
   final CreateQuestionBloc bloc;
+  final CreateQuestionListBloc listBloc = CreateQuestionListBloc();
   CreateQuestionScreen({this.bloc});
 
   @override
@@ -29,7 +31,11 @@ class CreateQuestionScreen extends StatelessWidget {
                               child: CreateQuestionList(
                                   question: snapshot.data,
                                   addAnswer: bloc.addAnswer,
-                                  removeAnswer: bloc.removeAnswer))
+                                  removeAnswer: bloc.removeAnswer,
+                                  fibonacci: listBloc.fibonacci,
+                                  emojis: listBloc.emojis,
+                              )
+                          )
                         ])
                 )
             )

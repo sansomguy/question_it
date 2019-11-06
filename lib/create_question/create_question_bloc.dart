@@ -5,9 +5,6 @@ class CreateQuestionBloc {
   BehaviorSubject<Question> _subject;
   CreateQuestionBloc({Stream<Question> question}){
     _subject = new BehaviorSubject<Question>();
-    question.listen((question){
-      print('Its here');
-    });
     question.listen(_subject.add);
   }
 
