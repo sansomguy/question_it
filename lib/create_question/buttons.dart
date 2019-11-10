@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:question_it/create_question/question_type_icon.dart';
 import 'package:question_it/questions/question.dart';
+import 'package:question_it/settings/borders.dart';
 import 'package:question_it/settings/colors.dart' as app_colors;
 
 
@@ -52,6 +53,7 @@ class _QuestionTypeButtonState extends State<QuestionTypeButton> {
             decoration: BoxDecoration(
               border: Border.all(
                       style: BorderStyle.solid,
+                      width: border_width/2,
                       color: app_colors.PrimaryADarkened
               )
             ),

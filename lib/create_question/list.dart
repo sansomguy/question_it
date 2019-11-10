@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:question_it/questions/question.dart';
+import 'package:question_it/settings/borders.dart';
 import 'package:question_it/settings/font.dart';
 
 typedef AddAnswer(Question question);
@@ -39,8 +40,8 @@ class CreateQuestionList extends StatelessWidget {
               },
               child: Container(
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 1)
+                      color: Colors.white30,
+                      border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: border_width)
                   ),
                   margin: EdgeInsets.all(10),
                   padding: EdgeInsets.all(20),
@@ -77,7 +78,7 @@ class CreateQuestionList extends StatelessWidget {
         child: Container(
               decoration: BoxDecoration(
                   color: Colors.white,
-                  border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: 1)
+                  border: Border.all(color: Colors.grey, style: BorderStyle.solid, width: border_width)
               ),
               margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(20),

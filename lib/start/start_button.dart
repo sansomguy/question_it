@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:question_it/settings/borders.dart';
 import 'package:question_it/settings/colors.dart' as app_colors;
 
 enum StartButtonType { Add, Search }
@@ -48,7 +49,7 @@ class _StartButtonState extends State<StartButton>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 50),
     );
     _animation = getAnimation();
   }
@@ -60,25 +61,32 @@ class _StartButtonState extends State<StartButton>
       builder: (context, widget) {
         return Container(
             width: double.infinity,
+            padding: EdgeInsets.all(kToolbarHeight),
             decoration: BoxDecoration(
               color: _animation.value,
               border: Border.all(
-                  width: 3,
+                  width: border_width,
                   color: buttonType == StartButtonType.Add
                       ? app_colors.PrimaryADarkened
                       : app_colors.PrimaryBDarkened),
             ),
-            child: IconButton(
-              onPressed: () {
+            child: GestureDetector(
+              onTap: () {
                 _animationController.fling(velocity: 1).whenComplete(() {
                   _animationController.reverse();
                 });
                 this.onClick();
               },
-              iconSize: 120,
-              color: Colors.black,
-              icon: Icon(
-                  buttonType == StartButtonType.Add ? Icons.add : Icons.search),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.circle,
+                  border: Border.all(width: border_width, style: BorderStyle.solid, color: Colors.black)
+                ),
+                child: Icon(
+                    buttonType == StartButtonType.Add ? Icons.add : Icons.search, size: 120, color: Colors.black
+                )
+              ),
             ));
       },
     );
