@@ -1,4 +1,4 @@
-class CreateQuestionListBloc {
+class QuestionsListLogic {
   static List<int> _fibonacciNumbers = List<int>();
 
   static int _nextFibonacci(int n) => n <= 2 ? 1 : _nextFibonacci(n - 2) + _nextFibonacci (n - 1);

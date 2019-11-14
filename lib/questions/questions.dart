@@ -1,17 +1,18 @@
-import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:question_it/questions/question.dart';
+import 'package:rxdart/rxdart.dart';
 
 class QuestionsRepository {
-
 
   static final String _questionCollection = "sessions";
   static final String _questionIdentifier = "id";
 
-  Question _activeQuestion;
-  get activeQuestion => _activeQuestion;
+  BehaviorSubject<Question> _activeQuestion;
+  Stream<Question> get activeQuestion => _activeQuestion;
 
-  final Map<String, Question> allQuestions = HashMap();
+  QuestionsRepository() {
+    _activeQuestion = BehaviorSubject<Question>();
+  }
 
   CollectionReference _getCollection() {
     return Firestore
@@ -54,17 +55,16 @@ class QuestionsRepository {
     if(existing != null) {
       return existing;
     }
-    return _activeQuestion = await _create(question);
-  }
-
-  Future<Question> get(String id) {
-    return _fetchExisting(Question(id: id));
+    var createdQuestion = await _create(question);
+    _activeQuestion.add(createdQuestion);
+    return createdQuestion;
   }
 
   Future<Question> update(Question question) async {
     var existing = await _fetchDocument(question);
     await _getCollection().document("${existing.documentID}").updateData(question.toJson());
-    return _activeQuestion = question;
+    _activeQuestion.add(question);
+    return question;
   }
 }
 

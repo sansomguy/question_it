@@ -22,9 +22,9 @@ class _ChooseUserNameScreen extends State<ChooseUserNameScreen> {
   Widget build(BuildContext context) {
     return BlocProvider<UserQuestionBloc>(
       builder: (context) => UserQuestionBloc(
-          usersRepository: RepositoryProvider.of<UsersRepository>(context),
-          questionsRepository:
-              RepositoryProvider.of<QuestionsRepository>(context)),
+        usersRepository: RepositoryProvider.of<UsersRepository>(context),
+        questionsRepository: RepositoryProvider.of<QuestionsRepository>(context)
+      ),
       child: Scaffold(
         body: Container(
           color: app_colors.PrimaryB,
@@ -44,11 +44,13 @@ class _ChooseUserNameScreen extends State<ChooseUserNameScreen> {
             ),
           ),
         ),
-        floatingActionButton: CircleButton(
-              iconData: Icons.check,
-              onTap: () {
-                  BlocProvider.of<UserQuestionBloc>(context).add(AddUserToQuestionEvent(User(controller.text)));
-              },
+        floatingActionButton: BlocBuilder<UserQuestionBloc, UserQuestionState>(
+         builder: (_, state) => CircleButton(
+             iconData: Icons.check,
+             onTap: () {
+               BlocProvider.of<UserQuestionBloc>(_).add(AddUserToQuestionEvent(User(controller.text)));
+             },
+           )
         ),
       ),
     );

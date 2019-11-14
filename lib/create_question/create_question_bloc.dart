@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
@@ -52,14 +54,27 @@ class ActiveQuestionState extends QuestionState with EquatableMixin{
 
 class CreateQuestionCompleteState extends QuestionState {}
 
-class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
+class CreateQuestionBloc extends Bloc<QuestionEvent, QuestionState> {
 
   final QuestionsRepository questionsRepository;
+  StreamSubscription<Question> subscription;
 
-  QuestionBloc(this.questionsRepository);
+  CreateQuestionBloc(this.questionsRepository);
 
   @override
-  QuestionState get initialState => NoQuestionState();
+  QuestionState get initialState {
+
+    subscription = questionsRepository.activeQuestion.listen((activeQuestion) {
+      add(SetActiveQuestionEvent(activeQuestion));
+    });
+    return NoQuestionState();
+  }
+
+  @override
+  void close() {
+    subscription.cancel();
+    super.close();
+  }
 
   @override
   Stream<QuestionState> mapEventToState(QuestionEvent event) async* {
@@ -95,19 +110,10 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     }
 
     if(event is SetActiveQuestionEvent) {
-      yield ActiveQuestionState(event.question);
-    }
-
-    if(event is CreateQuestionEvent) {
-      yield NoQuestionState();
-
-      var question = Question(id: Uuid().v1());
-      try {
-        await questionsRepository.create(question);
-        yield CreateQuestionCompleteState();
-        yield ActiveQuestionState(question);
-      } catch(_) {
-        yield state;
+      if(event.question != null){
+        yield ActiveQuestionState(event.question);
+      } else {
+        yield NoQuestionState();
       }
     }
   }
