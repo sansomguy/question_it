@@ -12,12 +12,14 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
     type: _$enumDecodeNullable(_$QuestionTypeEnumMap, json['type']),
     count: json['count'] as int,
     id: json['id'] as String,
+    documentId: json['documentId'] as String,
   );
 }
 
 Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
       'type': _$QuestionTypeEnumMap[instance.type],
       'users': instance.users,
+      'documentId': instance.documentId,
       'count': instance.count,
       'id': instance.id,
     };

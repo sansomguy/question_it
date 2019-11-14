@@ -6,7 +6,10 @@ class QuestionsRepository {
 
 
   static final String _questionCollection = "sessions";
-  static final String _questionIdentifer = "id";
+  static final String _questionIdentifier = "id";
+
+  Question _activeQuestion;
+  get activeQuestion => _activeQuestion;
 
   final Map<String, Question> allQuestions = HashMap();
 
@@ -28,7 +31,7 @@ class QuestionsRepository {
 
   Future<DocumentSnapshot> _fetchDocument(Question question) async {
     var results = await _getCollection()
-        .where(_questionIdentifer, isEqualTo: question.id)
+        .where(_questionIdentifier, isEqualTo: question.id)
         .getDocuments();
     var documents = results.documents;
 
@@ -51,7 +54,7 @@ class QuestionsRepository {
     if(existing != null) {
       return existing;
     }
-    return _create(question);
+    return _activeQuestion = await _create(question);
   }
 
   Future<Question> get(String id) {
@@ -61,7 +64,7 @@ class QuestionsRepository {
   Future<Question> update(Question question) async {
     var existing = await _fetchDocument(question);
     await _getCollection().document("${existing.documentID}").updateData(question.toJson());
-    return question;
+    return _activeQuestion = question;
   }
 }
 

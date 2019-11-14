@@ -8,19 +8,7 @@ import 'package:question_it/settings/colors.dart' as app_colors;
 class StartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<QuestionBloc, QuestionState>(
-      condition: (before, after) {
-        if(before is NoQuestionState && after is ActiveQuestionState) {
-          return true;
-        }
-        return false;
-      },
-      listener: (context, state) {
-        if(state is ActiveQuestionState) {
-          Navigator.push(context, MaterialPageRoute(builder: (_) => CreateQuestionScreen()));
-        }
-      },
-      child: Container(
+    return Container(
         color: app_colors.PrimaryB,
         child: SafeArea(
           child: Scaffold(
@@ -31,17 +19,18 @@ class StartScreen extends StatelessWidget {
                 child: StartButton(buttonType: StartButtonType.Search),
               ),
               Flexible(
-                  flex: 1,
-                  fit: FlexFit.tight,
-                  child: StartButton(
-                      buttonType: StartButtonType.Add,
-                      onClick: () {
-                        BlocProvider.of<QuestionBloc>(context).add(CreateQuestionEvent());
-                      }))
+                flex: 1,
+                fit: FlexFit.tight,
+                child: StartButton(
+                  buttonType: StartButtonType.Add,
+                  onClick: () {
+                    Navigator.push(context,MaterialPageRoute(builder: (_) => CreateQuestionScreen()));
+                  },
+                ),
+              ),
             ]),
           ),
         ),
-      ),
-    );
+      );
   }
 }

@@ -12,11 +12,14 @@ class Question extends Equatable{
   QuestionType type;
   @JsonKey(nullable: true)
   List<String> users = List<String>();
+  @JsonKey(nullable: true)
+  final String documentId;
 
   int count;
   final String id;
 
-  Question({this.users, this.type, this.count = 1, this.id});
+
+  Question({this.users, this.type, this.count = 1, this.id, this.documentId});
 
   factory Question.clone(
       Question question,
@@ -38,5 +41,5 @@ class Question extends Equatable{
   }
 
   @override
-  List<Object> get props => [users, type, count, id];
+  List<Object> get props => [users, type, count, id, documentId];
 }

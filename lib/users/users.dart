@@ -3,17 +3,17 @@ import 'user.dart';
 
 class UsersRepository {
 
-  final String _userCollection = "users";
-  final String _userIdentifier = "username";
+  static final String userCollection = "users";
+  static final String userIdentifier = "username";
 
   CollectionReference _getCollection() {
     return Firestore
         .instance
-        .collection(_userCollection);
+        .collection(userCollection);
   }
 
   Future<DocumentSnapshot> _fetchDocument(User user) async {
-    var query = await _getCollection().where(_userIdentifier, isEqualTo: user.username)
+    var query = await _getCollection().where(userIdentifier, isEqualTo: user.username)
         .getDocuments();
     return query.documents.length > 0 ? query.documents.first : null;
   }

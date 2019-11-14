@@ -50,6 +50,8 @@ class ActiveQuestionState extends QuestionState with EquatableMixin{
   List<Object> get props => [question];
 }
 
+class CreateQuestionCompleteState extends QuestionState {}
+
 class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
 
   final QuestionsRepository questionsRepository;
@@ -97,11 +99,13 @@ class QuestionBloc extends Bloc<QuestionEvent, QuestionState> {
     }
 
     if(event is CreateQuestionEvent) {
-      var question = Question(id: Uuid().v1());
-      yield ActiveQuestionState(question);
+      yield NoQuestionState();
 
+      var question = Question(id: Uuid().v1());
       try {
         await questionsRepository.create(question);
+        yield CreateQuestionCompleteState();
+        yield ActiveQuestionState(question);
       } catch(_) {
         yield state;
       }

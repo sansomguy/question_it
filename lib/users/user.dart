@@ -4,7 +4,12 @@ part 'user.g.dart';
 
 @JsonSerializable(nullable: false)
 class User {
+
+  @JsonKey(nullable: true)
+  String documentId;
+
   final String username;
+
   User(this.username);
 
   toJson() {

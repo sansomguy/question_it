@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:question_it/choose_username/user_question_bloc.dart';
 import 'package:question_it/questions/question_bloc.dart';
 import 'package:question_it/questions/questions.dart';
 import 'package:question_it/start/start_screen.dart';
@@ -20,19 +21,6 @@ class MyApp extends StatelessWidget {
           builder: (_) => UsersRepository(),
         ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<QuestionBloc>(
-            builder: (context) => QuestionBloc(
-              RepositoryProvider.of<QuestionsRepository>(context),
-            ),
-          ),
-          BlocProvider<UserBloc>(
-            builder: (context) => UserBloc(
-              RepositoryProvider.of<UsersRepository>(context),
-            ),
-          )
-        ],
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
@@ -49,7 +37,6 @@ class MyApp extends StatelessWidget {
           ),
           home: StartScreen(),
         ),
-      ),
     );
   }
 }
